@@ -1,0 +1,26 @@
+# Cargo.toml
+
+[package]
+name = "poem-monitor"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+poem = { version = "3.1.11", features = ["static-files"] }
+tokio = { version = "1.45.1", features = [
+  "macros",
+  "rt-multi-thread",
+  "sync",
+  "time",
+] }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+reqwest = "0.12.20"
+web-push = "0.11.0"
+base64 = "0.22.1"
+# --- ALTERAÇÕES AQUI ---
+# dotenvy = "0.15.7" # <-- REMOVIDO: Shuttle gerencia as variáveis de ambiente
+shuttle-poem = "0.55.0"          # <-- ADICIONADO
+shuttle-runtime = "0.55.0"       # <-- ADICIONADO
+shuttle-secrets = "0.42.0"       # <-- ADICIONADO para gerenciar segredos
+shuttle-static-folder = "0.28.0" # <-- ADICIONADO para servir arquivos estáticos

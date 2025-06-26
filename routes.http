@@ -1,0 +1,18 @@
+### ping que a porta está fechada
+# removi a authenticação para funcionar melhor na faculdade
+POST http://127.0.0.1:3000/api/door-closed
+
+
+### Quanto tempo passou
+GET http://127.0.0.1:3000/api/time
+
+
+### Resetar as inscrições
+POST http://127.0.0.1:3000/api/reset
+
+
+### Inscrever-se
+POST http://127.0.0.1:3000/api/subscribe
+
+### Enviar notificação para todos
+POST http://127.0.0.1:3000/api/notify
