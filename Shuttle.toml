@@ -1,7 +1,6 @@
-# Substitua pelo nome exato do seu projeto no Shuttle
+# Shuttle.toml
 name = "poem-monitor"
 
+# Adicione esta chave para declarar seus arquivos estáticos
 [build]
-# Este comando vai listar todos os arquivos e permissões
-# na raiz do seu projeto, dentro do ambiente de build do Shuttle.
-pre_run_hook = "ls -laR"
+assets = ["static/"]
