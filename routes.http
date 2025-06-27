@@ -16,3 +16,8 @@ POST http://127.0.0.1:3000/api/subscribe
 
 ### Enviar notificação para todos
 POST http://127.0.0.1:3000/api/notify
+
+
+
+### deployado
+POST https://door-alarm-backend-0qfm.shuttle.app/api/notify
