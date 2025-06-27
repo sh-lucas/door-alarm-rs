@@ -164,6 +164,22 @@ async fn poem(
     let static_folder = PathBuf::from("static");
     // dotenv().ok(); // <-- Removido
 
+    println!("Tentando resolver o caminho para a pasta estática...");
+    match std::fs::canonicalize(&static_folder) {
+        Ok(full_path) => {
+            println!(
+                "[SUCESSO] Caminho absoluto da pasta estática resolvido para: {:?}",
+                full_path
+            );
+        }
+        Err(e) => {
+            println!(
+                "[ERRO] Falha ao resolver o caminho da pasta estática: {}",
+                e
+            );
+        }
+    }
+
     // Pega a chave do SecretStore injetado pelo Shuttle.
     let vapid_private_key_b64 = secret_store
         .get("VAPID_PRIVATE_KEY")
