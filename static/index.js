@@ -66,3 +66,10 @@ subscribeButton.addEventListener("click", () => {
 //     .then((text) => console.log("Resposta do /hello:", text))
 //     .catch((err) => console.error(err));
 // });
+
+setInterval(async () => {
+  const response = await fetch("/api/time");
+  const body = await response.text();
+
+  document.getElementById("time").innerHTML = body;
+}, 1000);
