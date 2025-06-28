@@ -24,7 +24,7 @@ use shuttle_secrets::SecretStore;
 // use shuttle_static_folder::StaticFolder;
 use std::path::PathBuf;
 
-// --- Structs (sem mudanças) ---
+// --- Structs ---
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct PushSubscriptionKeys {
@@ -51,7 +51,7 @@ struct NotificationPayload {
     icon: String,
 }
 
-// --- Handlers (sem mudanças, exceto notify_all) ---
+// --- Handlers ---
 
 #[handler]
 async fn door_closed(state: Data<&Arc<Mutex<AppState>>>) -> &'static str {
@@ -97,12 +97,12 @@ async fn reset(state: Data<&Arc<Mutex<AppState>>>) -> Result<&'static str> {
 }
 
 // <--- MUDANÇA SIGNIFICATIVA AQUI --- >
-// O handler `notify_all` agora recebe a chave como bytes (`Vec<u8>`)
+// O handler `notify_all` recebe a chave como bytes (`Vec<u8>`)
 // e usa `from_raw_p256_key` para criar a assinatura.
 #[handler]
 async fn notify_all(
     state: Data<&Arc<Mutex<AppState>>>,
-    vapid_private_key_b64: Data<&String>, // <-- MUDANÇA: Recebe a chave como base64 string
+    vapid_private_key_b64: Data<&String>,
 ) -> Result<&'static str> {
     let app_state = state.lock().await;
 
@@ -153,16 +153,16 @@ async fn notify_all(
     Ok("Notificações enviadas")
 }
 
-// --- Função `main` (corrigida) ---
+// --- Função `main` ---
 
-// #[tokio::main] // <-- Substituído pelo macro do shuttle
+// #[tokio::main]
 #[shuttle_runtime::main]
 async fn poem(
     #[shuttle_runtime::Secrets] secret_store: shuttle_runtime::SecretStore,
 ) -> ShuttlePoem<impl Endpoint> {
     // Caminho hardcoded para a pasta estática, conforme recomendado pela Shuttle.
     let static_folder = PathBuf::from("static");
-    // dotenv().ok(); // <-- Removido
+    // dotenv().ok(); // removiod
 
     println!("Tentando resolver o caminho para a pasta estática...");
     match std::fs::canonicalize(&static_folder) {
@@ -204,7 +204,7 @@ async fn poem(
         .data(app_state)
         .data(vapid_private_key_b64); // Passa a chave para os handlers
 
-    // Em vez de rodar o servidor, nós retornamos a instância do app.
+    // Em vez de rodar o servidor, eu retorno a instância do app.
     // O Shuttle cuidará de fazer o bind e executar.
     // println!("Servidor rodando em http://127.0.0.1:3000"); // <-- Removido
     // Server::new(TcpListener::bind("127.0.0.1:3000"))
